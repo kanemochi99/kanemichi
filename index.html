@@ -2,30 +2,31 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ロジックツリー作成ツール</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
-    <!-- For layout extensions, e.g., dagre -->
-    <script src="https://unpkg.com/cytoscape-dagre/cytoscape-dagre.js"></script>
+    <title>酪農用飼料設計</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>ロジックツリー作成ツール</h1>
-        </header>
-
-        <div class="controls">
-            <button id="addNode">ノード追加</button>
-            <button id="removeNode">ノード削除</button>
-            <button id="exportTree">エクスポート</button>
-        </div>
-
-        <div id="treeContainer">
-            <!-- ロジックツリーがここに描画されます -->
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <h1>酪農用飼料設計</h1>
+    <form id="milk-form" method="post">
+        <label for="milk_kg">目標乳量 (kg/日):</label>
+        <input type="number" step="0.1" id="milk_kg" name="milk_kg" required>
+        <button type="submit">設計</button>
+    </form>
+    <h2>飼料ライブラリ</h2>
+    <table border="1">
+        <tr>
+            <th>飼料名</th><th>TDN(%)</th><th>CP(%)</th><th>NDF(%)</th>
+        </tr>
+        {% for name, comp in feeds.items() %}
+        <tr>
+            <td>{{ name }}</td>
+            <td>{{ comp.TDN }}</td>
+            <td>{{ comp.CP }}</td>
+            <td>{{ comp.NDF }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div id="result"></div>
+    <script src="/static/script.js"></script>
 </body>
 </html>
